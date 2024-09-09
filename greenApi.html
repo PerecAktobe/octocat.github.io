@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeksDevstvennik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+        }
+        input, button, textarea {
+            margin: 10px 0;
+            width: 100%;
+            padding: 10px;
+        }
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>GrenApi</h1>
+
+<label for="idInstance">ID Instance:</label>
+<input type="text" id="idInstance" placeholder="7103112514">
+
+<label for="apiToken">API Token Instance:</label>
+<input type="text" id="apiToken" placeholder="823b8714ef73423aa7a7060de2572475f2445497489449a598">
+
+<button onclick="getSettings()">GetSetting</button>
+<button onclick="sendMessage()">SendmessageSautik</button>
+
+<h2>Ответ:</h2>
+<textarea id="response" readonly></textarea>
+
+<script>
+    const apiUrl = "https://7103.api.greenapi.com";
+
+    async function fetchApi(endpoint, method = 'GET', body = null) {
+        const idInstance = document.getElementById('idInstance').value;
+        const apiToken = document.getElementById('apiToken').value;
+
+        const url = `${apiUrl}${endpoint}/${idInstance}/${apiToken}`;
+        const options = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: body ? JSON.stringify(body) : null
+        };
+
+        try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            document.getElementById('response').value = error.message;
+        }
+    }
+
+    async function getSettings() {
+        const result = await fetchApi('/getSettings');
+        document.getElementById('response').value = JSON.stringify(result, null, 2);
+    }
+
+    async function sendMessage() {
+        const messageData = {
+            chatId: '77082732093', // замените на номер получателя
+            message: 'Ваше сообщение' // замените на текст сообщения
+        };
+        const result = await fetchApi('/sendMessage', 'POST', messageData);
+        document.getElementById('response').value = JSON.stringify(result, null, 2);
+    }
+</script>
+
+</body>
+</html>
