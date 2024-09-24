@@ -1,94 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GREEN-API Demo</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        input[type="text"], button {
-            margin: 5px 0;
-            padding: 10px;
-            width: 300px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-            white-space: pre-wrap; /* Для переноса строк */
-        }
-    </style>
-    <script>
-        const apiUrl = 'https://api.green-api.com/waInstance7103112514'; // Замените на ваш API URL
-        const apiToken = '823b8714ef73423aa7a7060de2572475f2445497489449a598'; // Замените на ваш токен
-
-        async function callApi(method, body = {}) {
-            try {
-                const response = await fetch(`${apiUrl}/${method}`, { // Используйте обратные кавычки
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiToken}` // Используйте обратные кавычки
-                    },
-                    body: JSON.stringify(body)
-                });
-                const data = await response.json();
-                console.log(data);
-                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                console.error('Ошибка:', error);
-                document.getElementById('result').innerText = 'Ошибка: ' + error;
-            }
-        }
-
-        function getSettings() {
-            callApi('getSettings');
-        }
-
-        function getStateInstance() {
-            callApi('getStateInstance');
-        }
-
-        function sendMessage() {
-            const message = document.getElementById('messageInput').value;
-            const phoneNumber = document.getElementById('phoneInput').value;
-            callApi('sendMessage', { phone: phoneNumber, message: message });
-        }
-
-        function sendFileByUrl() {
-            const fileUrl = document.getElementById('fileUrlInput').value;
-            const phoneNumber = document.getElementById('filePhoneInput').value;
-            callApi('sendFileByUrl', { phone: phoneNumber, url: fileUrl });
-        }
-    </script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+<title>Anna Blok Youtube Page</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
-    <h1>GREEN-API Demo</h1>
-
-    <h2>Получить настройки</h2>
-    <button onclick="getSettings()">Получить настройки</button>
-
-    <h2>Получить состояние инстанса</h2>
-    <button onclick="getStateInstance()">Получить состояние</button>
-
-    <h2>Отправить сообщение</h2>
-    <input type="text" id="phoneInput" placeholder="Номер телефона" />
-    <input type="text" id="messageInput" placeholder="Сообщение" />
-    <button onclick="sendMessage()">Отправить сообщение</button>
-
-    <h2>Отправить файл по URL</h2>
-    <input type="text" id="filePhoneInput" placeholder="Номер телефона" />
-    <input type="text" id="fileUrlInput" placeholder="URL файла" />
-    <button onclick="sendFileByUrl()">Отправить файл</button>
-
-    <h2>Результат</h2>
-    <pre id="result"></pre>
+    <div id="wrapper">
+    	<div class="content">
+			<a href="https://www.youtube.com/channel/UCn5wduCq2Mus0v85QZn9IaA?sub_confirmation=1" class="content__btn">Youtube Channel</a>
+        </div>
+    </div>
 </body>
 </html>
